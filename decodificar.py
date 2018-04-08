@@ -28,6 +28,7 @@ text_bin = text_bin[0] + 'b' + text_bin[1:]
 
 text = int(text_bin, 2)
 text = text.to_bytes((text.bit_length() + 7) // 8, 'big').decode()
+text = text.replace('\x00', '')
 print("Message: " + text)
 file = open(sys.argv[3], 'w+')
 file.write(text)
