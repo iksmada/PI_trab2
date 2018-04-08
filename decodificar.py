@@ -1,11 +1,9 @@
 import sys
 import cv2
-import numpy as np
 
 
 def show_usage():
-    print(sys.argv)
-    print('python decodificar.py imagem_saida.png plano_bits texto_saida.txt')
+    print('Usage: python3 decodificar.py imagem_saida.png plano_bits texto_saida.txt')
 
 
 if len(sys.argv) < 3:

@@ -3,8 +3,7 @@ import cv2
 
 
 def show_usage():
-    print(sys.argv)
-    print('python codificar.py imagem_entrada.png texto_entrada.txt plano_bits imagem_saida.png')
+    print('Usage: python3 codificar.py imagem_entrada.png texto_entrada.txt plano_bits imagem_saida.png')
 
 
 if len(sys.argv) < 5:
