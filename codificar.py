@@ -1,5 +1,6 @@
 import sys
 import cv2
+import numpy as np
 
 
 def show_usage():
@@ -33,19 +34,16 @@ for h in range(img.shape[0]):
 
 cv2.imshow('Original Image', img)
 mask_bit_0 = 1 << 0
-cv2.imshow('Bit 0 Blue', cv2.bitwise_and(coded_img[:, :, 0], mask_bit_0) * 255)
-cv2.imshow('Bit 0 Green', cv2.bitwise_and(coded_img[:, :, 1], mask_bit_0) * 255)
-cv2.imshow('Bit 0 Red', cv2.bitwise_and(coded_img[:, :, 2], mask_bit_0) * 255)
+cv2.imshow('Bit 0', cv2.bitwise_and(coded_img, np.array([mask_bit_0, mask_bit_0, mask_bit_0])) * 255)
 
 mask_bit_1 = 1 << 1
-cv2.imshow('Bit 1 Blue', cv2.bitwise_and(coded_img[:, :, 0], mask_bit_1) * 255)
-cv2.imshow('Bit 1 Green', cv2.bitwise_and(coded_img[:, :, 1], mask_bit_1) * 255)
-cv2.imshow('Bit 1 Red', cv2.bitwise_and(coded_img[:, :, 2], mask_bit_1) * 255)
+cv2.imshow('Bit 1', cv2.bitwise_and(coded_img, np.array([mask_bit_1, mask_bit_1, mask_bit_1]))/2 * 255)
 
 mask_bit_2 = 1 << 2
-cv2.imshow('Bit 2 Blue', cv2.bitwise_and(coded_img[:, :, 0], mask_bit_2) * 255)
-cv2.imshow('Bit 2 Green', cv2.bitwise_and(coded_img[:, :, 1], mask_bit_2) * 255)
-cv2.imshow('Bit 2 Red', cv2.bitwise_and(coded_img[:, :, 2], mask_bit_2) * 255)
+cv2.imshow('Bit 2', cv2.bitwise_and(coded_img, np.array([mask_bit_2, mask_bit_2, mask_bit_2]))/4 * 255)
+
+mask_bit_7 = 1 << 7
+cv2.imshow('Bit 7', cv2.bitwise_and(coded_img, np.array([mask_bit_7, mask_bit_7, mask_bit_7])))
 
 cv2.imshow('Coded Image', coded_img)
 cv2.imwrite(sys.argv[4], coded_img)
