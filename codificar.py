@@ -15,21 +15,22 @@ img = cv2.imread(sys.argv[1], cv2.IMREAD_COLOR)
 file = open(sys.argv[2], 'r')
 text = file.read()
 bits = int(sys.argv[3])
-text = bin(int.from_bytes(text.encode(), 'big')).replace('b', '')
+# '00000011' character "End of Text"
+text = bin(int.from_bytes(text.encode(), 'big')).replace('b', '') + '00000011'
 
 coded_img = img.copy()
 i = 0
 for h in range(img.shape[0]):
     for w in range(img.shape[1]):
         for color in range(img.shape[2]):
-            pixel = img[h, w, color]
-            operator = 1 << bits
-            pixel = pixel & ~operator
             if i < len(text):
+                pixel = img[h, w, color]
+                operator = 1 << bits
+                pixel = pixel & ~operator
                 operator = int(text[i]) << bits
                 pixel = pixel | operator
                 i = i + 1
-            coded_img[h, w, color] = pixel
+                coded_img[h, w, color] = pixel
 
 
 cv2.imshow('Original Image', img)

@@ -18,16 +18,20 @@ text_bin = str()
 for h in range(img.shape[0]):
     for w in range(img.shape[1]):
         for color in range(img.shape[2]):
-            pixel = img[h, w, color]
-            operator = 1 << bits
-            bit = (pixel & operator != 0) * 1
-            text_bin = text_bin + str(bit)
+            # '00000011' character "End of Text"
+            if text_bin.endswith('00000011') and len(text_bin) % 8 == 0:
+                break
+            else:
+                pixel = img[h, w, color]
+                operator = 1 << bits
+                bit = (pixel & operator != 0) * 1
+                text_bin = text_bin + str(bit)
 
 text_bin = text_bin[0] + 'b' + text_bin[1:]
 
 text = int(text_bin, 2)
 text = text.to_bytes((text.bit_length() + 7) // 8, 'big').decode()
-text = text.replace('\x00', '')
+text = text.replace('', '')
 print("Message: " + text)
 file = open(sys.argv[3], 'w+')
 file.write(text)
